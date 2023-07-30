@@ -36,7 +36,8 @@ Route::group([
     'prefix' => 'user',
     'as' => 'user.'
 ], function () {
-    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [UserProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard'); // user.dashboard
+    Route::get('/profile', [UserProfileController::class, 'index'])->name('profile'); // user.profile
+    Route::put('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update'); // user.profile.update
+    Route::post('/profile', [UserProfileController::class, 'updatePassword'])->name('profile.update.password'); // user.profile.update.password
 });
