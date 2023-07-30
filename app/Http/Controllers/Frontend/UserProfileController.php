@@ -1,28 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use File;
 
-class ProfileController extends Controller
+class UserProfileController extends Controller
 {
     public function index()
     {
-        return view('admin.profile.index');
+        return view('frontend.dashboard.profile');
     }
 
     public function updateProfile(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email,' . Auth::user()->id],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['image', 'max:2048']
         ]);
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         // If the user uploads a new image, upload it and assign a new name for it.
@@ -46,21 +47,6 @@ class ProfileController extends Controller
         $user->save();
 
         toastr()->success('Profile updated successfully!');
-        return redirect()->back();
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', 'confirmed', 'min:8'],
-        ]);
-
-        $request->user()->update([
-            'password' => bcrypt($request->password),
-        ]);
-
-        toastr()->success('Password updated successfully!');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }
