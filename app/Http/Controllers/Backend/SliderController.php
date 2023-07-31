@@ -75,7 +75,8 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        return "Edit page for the slider with id: $id";
+        $slider = Slider::findOrFail($id);
+        return view('admin.slider.edit', compact('slider'));
     }
 
     /**
@@ -83,7 +84,33 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'banner' => ['nullable', 'image', 'max:2048'],
+            'type' => ['string', 'max:200'],
+            'title' => ['required', 'max:200'],
+            'starting_price' => ['max:200'],
+            'btn_url' => ['url'],
+            'serial' => ['required', 'integer'],
+            'status' => ['required'],
+        ]);
+
+        $slider = Slider::findOrFail($id);
+
+        /** Update the image */
+        $imagePath = $this->updateImage($request, 'banner', 'uploads/slider', $slider->banner);
+
+        $slider->banner = empty(!$imagePath) ? $imagePath : $slider->banner;
+        $slider->type = $request->type;
+        $slider->title = $request->title;
+        $slider->starting_price = $request->starting_price;
+        $slider->btn_url = $request->btn_url;
+        $slider->serial = $request->serial;
+        $slider->status = $request->status;
+        $slider->save();
+
+        toastr('Slider updated successfully!');
+
+        return redirect()->route('admin.slider.index');
     }
 
     /**
