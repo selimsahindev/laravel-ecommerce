@@ -75,7 +75,7 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return "Edit page for the slider with id: $id";
     }
 
     /**
