@@ -28,9 +28,14 @@ class SlidersDataTable extends DataTable
                 return "<div class='d-flex'>" . $editBtn . $deleteBtn . "</div>";
             })
             ->addColumn('banner', function ($query) {
-                return "<img height='80px' src='" . asset($query->banner) . "'></img>";
+                return "<img width='100px' src='" . asset($query->banner) . "'></img>";
             })
-            ->rawColumns(['banner', 'action'])
+            ->addColumn('status', function ($query) {
+                $active = '<i class="badge badge-success">Active</i>';
+                $inactive = '<i class="badge badge-danger">Inactive</i>';
+                return $query->status == 1 ? $active : $inactive;
+            })
+            ->rawColumns(['banner', 'action', 'status'])
             ->setRowId('id');
     }
 
@@ -73,6 +78,8 @@ class SlidersDataTable extends DataTable
             Column::make('id'),
             Column::make('banner'),
             Column::make('title'),
+            Column::make('serial'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
