@@ -25,10 +25,7 @@ trait ImageUploadTrait
     {
         if ($request->hasFile($inputName)) {
 
-            // Remove the old image if exists
-            if (File::exists(public_path($oldPath))) {
-                File::delete(public_path($oldPath));
-            }
+            $this->deleteImage($oldPath);
 
             $image = $request->{$inputName};
             $imageName = $this->getUploadedImageName($image);
@@ -36,6 +33,13 @@ trait ImageUploadTrait
             $image->move(public_path($path), $imageName);
 
             return $path . '/' . $imageName;
+        }
+    }
+
+    public function deleteImage(String $path)
+    {
+        if (File::exists(public_path($path))) {
+            File::delete(public_path($path));
         }
     }
 
