@@ -148,12 +148,13 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
 
     <script>
+        // Position toastr bottom-right
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+        };
+
         @if ($errors->any())
             @foreach ($errors->all() as $error)
-                // Position toastr bottom-right
-                toastr.options = {
-                    "positionClass": "toast-bottom-right",
-                }
                 toastr.error("{{ $error }}");
             @endforeach
         @endif

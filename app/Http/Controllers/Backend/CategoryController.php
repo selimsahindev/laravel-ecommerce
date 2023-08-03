@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\CategoriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -92,5 +93,15 @@ class CategoryController extends Controller
         $category->delete();
 
         return response(['status' => 'success', 'message' => 'Category deleted successfully!']);
+    }
+
+    /** Change the active status of the category. */
+    public function changeStatus(Request $request)
+    {
+        $category = Category::findOrFail($request->id);
+        $category->status = $request->isChecked == 'true' ? 1 : 0;
+        $category->save();
+
+        return response(['message' => 'Category status updated successfully!']);
     }
 }

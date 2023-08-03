@@ -31,10 +31,13 @@ class CategoriesDataTable extends DataTable
             //     return $query->status == 1 ? $active : $inactive;
             // })
             ->addColumn('status', function ($query) {
+                $checked = $query->status == 1 ? 'checked' : '';
+
                 $button = '<label class="custom-switch mt-2">
-                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+                    <input type="checkbox" ' . $checked . ' data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
                     <span class="custom-switch-indicator"></span>
                 </label>';
+
                 return $button;
             })
             ->addColumn('action', function ($query) {

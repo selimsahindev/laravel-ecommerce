@@ -19,4 +19,7 @@ Route::post('/profile/update/password', [ProfileController::class, 'updatePasswo
 Route::resource('/slider', SliderController::class);
 
 /** Category Route */
+/** We have to put additional routes before the resource route if we
+ * want to use the same controller. Otherwise the route will not work */
+Route::put('/change-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
 Route::resource('/category', CategoryController::class);

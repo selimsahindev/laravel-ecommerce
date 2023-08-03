@@ -112,6 +112,11 @@
 
     <!-- Dynamic Delete Alert -->
     <script>
+        // Position toastr bottom-right
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+        };
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
