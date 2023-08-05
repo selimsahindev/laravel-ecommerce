@@ -90,6 +90,15 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
+        $subCategoryCount = $category->subCategories->count();
+
+        if ($subCategoryCount > 0) {
+            return response([
+                'status' => 'error',
+                'message' => 'This category has sub categories. Please delete them first!'
+            ]);
+        }
+
         $category->delete();
 
         return response([

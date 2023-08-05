@@ -99,6 +99,15 @@ class SubCategoryController extends Controller
     public function destroy(string $id)
     {
         $subCategory = SubCategory::findOrFail($id);
+        $childCategoryCount = $subCategory->childCategories->count();
+
+        if ($childCategoryCount > 0) {
+            return response([
+                'status' => 'error',
+                'message' => 'This sub category has child categories. Please delete them first!'
+            ]);
+        }
+
         $subCategory->delete();
 
         return response([
