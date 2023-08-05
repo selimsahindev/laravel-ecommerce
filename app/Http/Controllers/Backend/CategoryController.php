@@ -107,4 +107,11 @@ class CategoryController extends Controller
 
         return response(['message' => 'Category status updated successfully!']);
     }
+
+    /** Get the sub categories of the category. */
+    public function getSubCategories(Request $request)
+    {
+        $category = Category::findOrFail($request->id);
+        return $category->subCategories;
+    }
 }
