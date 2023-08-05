@@ -25,11 +25,6 @@ class CategoriesDataTable extends DataTable
             ->addColumn('icon', function ($category) {
                 return '<i style="font-size:1.2rem" class="' . $category->icon . '"></i>';
             })
-            // ->addColumn('status', function ($query) {
-            //     $active = '<i class="badge badge-success">Active</i>';
-            //     $inactive = '<i class="badge badge-danger">Inactive</i>';
-            //     return $query->status == 1 ? $active : $inactive;
-            // })
             ->addColumn('status', function ($query) {
                 $checked = $query->status == 1 ? 'checked' : '';
 
@@ -43,7 +38,7 @@ class CategoriesDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.category.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.category.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
-                return "<div class='d-flex'>" . $editBtn . $deleteBtn . "</div>";
+                return $editBtn . $deleteBtn;
             })
             ->rawColumns(['icon', 'status', 'action'])
             ->setRowId('id');
@@ -95,7 +90,7 @@ class CategoriesDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

@@ -22,7 +22,28 @@ class ChildCategoriesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'childcategories.action')
+            ->addColumn('category', function ($query) {
+                return $query->category->name;
+            })
+            ->addColumn('sub_category', function ($query) {
+                return $query->subCategory->name;
+            })
+            ->addColumn('status', function ($query) {
+                $checked = $query->status == 1 ? 'checked' : '';
+
+                $button = '<label class="custom-switch mt-2">
+                    <input type="checkbox" ' . $checked . ' data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+                    <span class="custom-switch-indicator"></span>
+                </label>';
+
+                return $button;
+            })
+            ->addColumn('action', function ($query) {
+                $editBtn = "<a href='" . route('admin.child-category.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.child-category.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
+                return $editBtn . $deleteBtn;
+            })
+            ->rawColumns(['status', 'action'])
             ->setRowId('id');
     }
 
@@ -64,10 +85,13 @@ class ChildCategoriesDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
+            Column::make('category'),
+            Column::make('sub_category'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

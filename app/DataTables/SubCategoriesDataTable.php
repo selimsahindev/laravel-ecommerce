@@ -28,7 +28,7 @@ class SubCategoriesDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.sub-category.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.sub-category.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
-                return "<div class='d-flex'>" . $editBtn . $deleteBtn . "</div>";
+                return $editBtn . $deleteBtn;
             })
             ->addColumn('status', function ($query) {
                 $checked = $query->status == 1 ? 'checked' : '';
@@ -88,7 +88,7 @@ class SubCategoriesDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

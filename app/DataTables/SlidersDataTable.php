@@ -25,7 +25,7 @@ class SlidersDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.slider.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.slider.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash-alt'></i></a>";
-                return "<div class='d-flex'>" . $editBtn . $deleteBtn . "</div>";
+                return $editBtn . $deleteBtn;
             })
             ->addColumn('banner', function ($query) {
                 return "<img width='100px' src='" . asset($query->banner) . "'></img>";
@@ -83,7 +83,7 @@ class SlidersDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

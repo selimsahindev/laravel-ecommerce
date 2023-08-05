@@ -114,6 +114,6 @@ class SubCategoryController extends Controller
         $subCategory->status = $request->isChecked == 'true' ? 1 : 0;
         $subCategory->save();
 
-        return response(['message' => 'Sub category status updated successfully!']);
+        return response(['message' => 'Status updated successfully!']);
     }
 }

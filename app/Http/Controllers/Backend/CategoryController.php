@@ -105,7 +105,7 @@ class CategoryController extends Controller
         $category->status = $request->isChecked == 'true' ? 1 : 0;
         $category->save();
 
-        return response(['message' => 'Category status updated successfully!']);
+        return response(['message' => 'Status updated successfully!']);
     }
 
     /** Get the sub categories of the category. */

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\ChildCategoriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ChildCategoryController extends Controller
 {
@@ -31,7 +33,25 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_id' => ['required'],
+            'sub_category_id' => ['required'],
+            'name' => ['required', 'max:200', 'unique:child_categories,name'],
+            'status' => ['required'],
+        ]);
+
+        $childCategory = new ChildCategory();
+
+        $childCategory->category_id = $request->category_id;
+        $childCategory->sub_category_id = $request->sub_category_id;
+        $childCategory->name = $request->name;
+        $childCategory->slug = Str::slug($request->name);
+        $childCategory->status = $request->status;
+        $childCategory->save();
+
+        toastr('Child category created successfully');
+
+        return redirect()->route('admin.child-category.index');
     }
 
     /**
@@ -64,5 +84,15 @@ class ChildCategoryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /** Change the active status of the category. */
+    public function changeStatus(Request $request)
+    {
+        $childCategory = ChildCategory::findOrFail($request->id);
+        $childCategory->status = $request->isChecked == 'true' ? 1 : 0;
+        $childCategory->save();
+
+        return response(['message' => 'Status updated successfully!']);
     }
 }
