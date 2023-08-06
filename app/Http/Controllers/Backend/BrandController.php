@@ -87,7 +87,7 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
 
         /** Update the logo */
-        $imagePath = $this->updateImage($request, 'logo', 'uploads/brands', $brand->logo);
+        $imagePath = $this->updateImage($request, 'logo', 'uploads/vendors', $brand->logo);
 
         $brand->logo = empty(!$imagePath) ? $imagePath : $brand->logo;
         $brand->name = $request->name;
