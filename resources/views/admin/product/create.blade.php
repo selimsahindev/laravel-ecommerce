@@ -21,7 +21,7 @@
 
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <input type="file" class="form-control" name="image">
+                                    <input type="file" class="form-control" name="thumb_image">
                                 </div>
 
                                 <div class="form-group">
@@ -65,10 +65,11 @@
 
                                 <div class="form-group">
                                     <label for="inputState">Brand</label>
-                                    <select id="inputState" class="form-control child-category" name="brand_id">
+                                    <select id="inputState" class="form-control" name="brand_id">
                                         <option value="">Select</option>
                                         @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                            <option {{ old('brand_id') == $brand->id ? 'selected' : '' }}
+                                                value="{{ $brand->id }}">{{ $brand->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -121,12 +122,13 @@
 
                                 <div class="form-group">
                                     <label>Short Description</label>
-                                    <textarea name="short_description" class="form-control"></textarea>
+                                    <textarea name="short_description" class="form-control" value="{{ old('short_description') }}"></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Long Description</label>
-                                    <textarea name="long_description" class="form-control summernote"></textarea>
+                                    <textarea name="long_description" class="form-control summernote"
+                                        value="{{ old('long_description') }}></textarea>
                                 </div>
 
                                 <div class="row">
@@ -134,9 +136,9 @@
                                         <div class="form-group">
                                             <label for="inputState">Is Top Product</label>
                                             <select id="inputState" class="form-control" name="is_top">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
+                                                <option {{ old('is_top') == '' ? 'selected' : '' }} value="">Select</option>
+                                                <option {{ old('is_top') == 1 ? 'selected' : '' }} value="1">Yes</option>
+                                                <option {{ old('is_top') == 0 ? 'selected' : '' }} value="0">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -145,9 +147,9 @@
                                         <div class="form-group">
                                             <label for="inputState">Is Best Product</label>
                                             <select id="inputState" class="form-control" name="is_best">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
+                                                <option {{ old('is_best') == '' ? 'selected' : '' }} value="">Select</option>
+                                                <option {{ old('is_best') == 1 ? 'selected' : '' }} value="1">Yes</option>
+                                                <option {{ old('is_best') == 0 ? 'selected' : '' }} value="0">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -156,9 +158,9 @@
                                         <div class="form-group">
                                             <label for="inputState">Is Featured Product</label>
                                             <select id="inputState" class="form-control" name="is_featured">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
+                                                <option {{ old('is_featured') == '' ? 'selected' : '' }} value="">Select</option>
+                                                <option {{ old('is_featured') == 1 ? 'selected' : '' }} value="1">Yes</option>
+                                                <option {{ old('is_featured') == 0 ? 'selected' : '' }} value="0">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -178,8 +180,9 @@
                                 <div class="form-group">
                                     <label for="inputState">Status</label>
                                     <select id="inputState" class="form-control" name="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option {{ old('status') == 1 ? 'selected' : '' }} value="1">Active</option>
+                                        <option {{ old('status') == 0 ? 'selected' : '' }} value="0">Inactive
+                                        </option>
                                     </select>
                                 </div>
 
