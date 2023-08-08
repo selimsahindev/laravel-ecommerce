@@ -125,4 +125,11 @@ class SubCategoryController extends Controller
 
         return response(['message' => 'Status updated successfully!']);
     }
+
+    /** Get the child categories of the sub category. */
+    public function getChildCategories(Request $request)
+    {
+        $category = SubCategory::findOrFail($request->id);
+        return $category->childCategories;
+    }
 }
