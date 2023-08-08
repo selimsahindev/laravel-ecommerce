@@ -127,43 +127,18 @@
 
                                 <div class="form-group">
                                     <label>Long Description</label>
-                                    <textarea name="long_description" class="form-control summernote"
-                                        value="{{ old('long_description') }}></textarea>
+                                    <textarea name="long_description" class="form-control summernote" value="{{ old('long_description') }}"></textarea>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="inputState">Is Top Product</label>
-                                            <select id="inputState" class="form-control" name="is_top">
-                                                <option {{ old('is_top') == '' ? 'selected' : '' }} value="">Select</option>
-                                                <option {{ old('is_top') == 1 ? 'selected' : '' }} value="1">Yes</option>
-                                                <option {{ old('is_top') == 0 ? 'selected' : '' }} value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="inputState">Is Best Product</label>
-                                            <select id="inputState" class="form-control" name="is_best">
-                                                <option {{ old('is_best') == '' ? 'selected' : '' }} value="">Select</option>
-                                                <option {{ old('is_best') == 1 ? 'selected' : '' }} value="1">Yes</option>
-                                                <option {{ old('is_best') == 0 ? 'selected' : '' }} value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="inputState">Is Featured Product</label>
-                                            <select id="inputState" class="form-control" name="is_featured">
-                                                <option {{ old('is_featured') == '' ? 'selected' : '' }} value="">Select</option>
-                                                <option {{ old('is_featured') == 1 ? 'selected' : '' }} value="1">Yes</option>
-                                                <option {{ old('is_featured') == 0 ? 'selected' : '' }} value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="inputState">Product Type</label>
+                                    <select id="inputState" class="form-control" name="product_type">
+                                        <option value="">Select</option>
+                                        <option value="new_arrival">New Arrival</option>
+                                        <option value="featured_product">Featured</option>
+                                        <option value="top_product">Top Product</option>
+                                        <option value="best_product">Best Product</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
