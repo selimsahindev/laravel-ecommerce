@@ -31,7 +31,7 @@ class ProductsDataTable extends DataTable
                         return '<i class="badge badge-success">New Arrival</i>';
                         break;
                     case 'featured_product':
-                        return '<i class="badge badge-warning">Featured Product</i>';
+                        return '<i class="badge badge-warning">Featured</i>';
                         break;
                     case 'top_product':
                         return '<i class="badge badge-info">Top Product</i>';
