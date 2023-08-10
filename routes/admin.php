@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -43,6 +44,9 @@ Route::resource('brand', BrandController::class);
 
 /** Vendor Profile Routes */
 Route::resource('vendor-profile', AdminVendorProfileController::class);
+
+/** Product Image Gallery Routes */
+Route::resource('product/image-gallery', ProductImageGalleryController::class);
 
 /** Product Routes */
 Route::resource('product', ProductController::class);
