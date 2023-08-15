@@ -4,16 +4,22 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductImageGalleriesDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductImageGallery;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class ProductImageGalleryController extends Controller
 {
+    use ImageUploadTrait;
+
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductImageGalleriesDataTable $dataTable)
+    public function index(Request $request, ProductImageGalleriesDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.image-gallery.index');
+        $productImageGallery = ProductImageGallery::where('product_id', $request->product)->first();
+        return $dataTable->render('admin.product.image-gallery.index', compact('productImageGallery'));
     }
 
     /**
@@ -29,7 +35,23 @@ class ProductImageGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image.*' => ['required', 'image', 'max:2048']
+        ]);
+
+        /** Handle image upload */
+        $imagePaths = $this->uploadMultipleImages($request, 'image', 'uploads/products');
+
+        foreach ($imagePaths as $imagePath) {
+            $productImageGallery = new ProductImageGallery();
+            $productImageGallery->product_id = $request->product_id;
+            $productImageGallery->image = $imagePath;
+            $productImageGallery->save();
+        }
+
+        toastr('Uploaded successfully!');
+
+        return redirect()->back();
     }
 
     /**
