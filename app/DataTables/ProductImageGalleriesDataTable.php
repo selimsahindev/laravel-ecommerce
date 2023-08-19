@@ -23,7 +23,7 @@ class ProductImageGalleriesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('image', function ($query) {
-                return "<img width='70px' src='" . asset($query->image) . "'></img>";
+                return "<img width='128px' src='" . asset($query->image) . "'></img>";
             })
             ->addColumn('action', function ($query) {
                 return "<a href='" . route('admin.image-gallery.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash-alt'></i></a>";

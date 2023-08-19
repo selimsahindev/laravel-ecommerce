@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductImageGalleriesDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
@@ -83,6 +82,13 @@ class ProductImageGalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $productImageGallery = ProductImageGallery::findOrFail($id);
+        $this->deleteImage($productImageGallery->image);
+        $productImageGallery->delete();
+
+        return response([
+            'status' => 'success',
+            'message' => 'Deleted successfully!'
+        ]);
     }
 }
