@@ -15,8 +15,8 @@ class ProductVariantController extends Controller
      */
     public function index(ProductVariantsDataTable $dataTable)
     {
-        $product = Product::findOrfail(request()->product);
-        return $dataTable->render('admin.product.variant.index', compact('product'));
+        $product = Product::find(request()->product);
+        return $dataTable->render('admin.product.variant.index', compact(['product']));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductVariantController extends Controller
         ]);
 
         $variant = new ProductVariant();
-        $variant->product_id = $request->product_id;
+        $variant->product_id = $request->product;
         $variant->name = $request->name;
         $variant->status = $request->status;
         $variant->save();
@@ -62,7 +62,8 @@ class ProductVariantController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $variant = ProductVariant::findOrFail($id);
+        return view('admin.product.variant.edit', compact(['variant']));
     }
 
     /**
@@ -70,7 +71,19 @@ class ProductVariantController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $variant = ProductVariant::findOrFail($id);
+        $request->validate([
+            'name' => ['required', 'max:200'],
+            'status' => ['required']
+        ]);
+
+        $variant->name = $request->name;
+        $variant->status = $request->status;
+        $variant->save();
+
+        toastr('Variant updated successfully', 'success', 'success');
+
+        return redirect()->route('admin.variant.index', ['product' => $variant->product_id]);
     }
 
     /**
@@ -78,6 +91,22 @@ class ProductVariantController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $variant = ProductVariant::findOrFail($id);
+        $variant->delete();
+
+        return response([
+            'status' => 'success',
+            'message' => 'Variant deleted successfully!'
+        ]);
+    }
+
+    /** Change the active status of the variant. */
+    public function changeStatus(Request $request)
+    {
+        $variant = ProductVariant::findOrFail($request->id);
+        $variant->status = $request->isChecked == 'true' ? 1 : 0;
+        $variant->save();
+
+        return response(['message' => 'Status updated successfully!']);
     }
 }

@@ -23,6 +23,23 @@ class ProductVariantsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'productvariants.action')
+            ->addColumn('status', function ($query) {
+                $checked = $query->status == 1 ? 'checked' : '';
+
+                $button = '<label class="custom-switch mt-2">
+                    <input type="checkbox" ' . $checked . ' data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+                    <span class="custom-switch-indicator"></span>
+                </label>';
+
+                return $button;
+            })
+            ->addColumn('action', function ($query) {
+                $variantItems = "<a href='" . route('admin.category.edit', $query->id) . "' class='btn btn-info'><i class='far fa-edit'></i> Variant Items</a>";
+                $editBtn = "<a href='" . route('admin.variant.edit', $query->id) . "' class='btn btn-primary mx-2'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.variant.destroy', $query->id) . "' class='btn btn-danger delete-item'><i class='fas fa-trash-alt'></i></a>";
+                return $variantItems . $editBtn . $deleteBtn;
+            })
+            ->rawColumns(['status', 'action'])
             ->setRowId('id');
     }
 
@@ -44,7 +61,7 @@ class ProductVariantsDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -62,12 +79,13 @@ class ProductVariantsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')->width(80),
             Column::make('name'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(250)
                 ->addClass('text-center'),
         ];
     }

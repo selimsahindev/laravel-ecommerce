@@ -118,9 +118,9 @@ class BrandController extends Controller
     /** Change the active status of the brand. */
     public function changeStatus(Request $request)
     {
-        $category = Brand::findOrFail($request->id);
-        $category->status = $request->isChecked == 'true' ? 1 : 0;
-        $category->save();
+        $brand = Brand::findOrFail($request->id);
+        $brand->status = $request->isChecked == 'true' ? 1 : 0;
+        $brand->save();
 
         return response(['message' => 'Status updated successfully!']);
     }

@@ -68,8 +68,7 @@ class ProductImageGalleriesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')
-                ->width(100),
+            Column::make('id')->width(80),
             Column::make('image'),
             Column::computed('action')
                 ->exportable(false)

@@ -12,33 +12,31 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Variant</h4>
+                            <h4>Update Variant</h4>
 
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('admin.variant.store') }}" method="POST">
+                            <form action="{{ route('admin.variant.update', $variant->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
 
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" name="product"
-                                        value="{{ request()->$product }}">
+                                    <input type="text" class="form-control" name="name" value="{{ $variant->name }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputState">Status</label>
                                     <select id="inputState" class="form-control" name="status">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option {{ $variant->status == '1' ? 'selected' : '' }} value="1">Active
+                                        </option>
+                                        <option {{ $variant->status == '0' ? 'selected' : '' }} value="0">Inactive
+                                        </option>
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </form>
                         </div>
                     </div>

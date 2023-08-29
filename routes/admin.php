@@ -50,6 +50,7 @@ Route::resource('vendor-profile', AdminVendorProfileController::class);
 Route::resource('product/image-gallery', ProductImageGalleryController::class);
 
 /** Product Variant Routes */
+Route::put('/product/variant/change-status', [ProductVariantController::class, 'changeStatus'])->name('variant.change-status');
 Route::resource('product/variant', ProductVariantController::class);
 
 /** Product Routes */
