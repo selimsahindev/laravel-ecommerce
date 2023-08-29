@@ -168,4 +168,14 @@ class ProductController extends Controller
     {
         //
     }
+
+    /** Change the active status of the category. */
+    public function changeStatus(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->status = $request->isChecked == 'true' ? 1 : 0;
+        $product->save();
+
+        return response(['message' => 'Status updated successfully!']);
+    }
 }

@@ -23,7 +23,7 @@ Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->nam
 Route::post('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
 /** Slider Routes */
-Route::resource('/slider', SliderController::class);
+Route::resource('slider', SliderController::class);
 
 /** Category Routes */
 /** We have to put additional routes before the resource route if we
@@ -54,4 +54,5 @@ Route::put('/product/variant/change-status', [ProductVariantController::class, '
 Route::resource('product/variant', ProductVariantController::class);
 
 /** Product Routes */
+Route::put('/product/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('product', ProductController::class);
