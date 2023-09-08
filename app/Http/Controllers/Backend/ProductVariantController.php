@@ -46,7 +46,7 @@ class ProductVariantController extends Controller
 
         toastr('Variant created successfully', 'success', 'success');
 
-        return redirect()->route('admin.variant.index');
+        return redirect()->route('admin.variant.index', ['product' => $request->product]);
     }
 
     /**

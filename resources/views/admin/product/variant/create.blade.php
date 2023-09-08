@@ -27,7 +27,7 @@
 
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" name="product"
-                                        value="{{ request()->$product }}">
+                                        value="{{ request()->product }}">
                                 </div>
 
                                 <div class="form-group">
