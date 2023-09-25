@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -57,8 +58,8 @@ class ProductsDataTable extends DataTable
                     <i class="fas fa-cog"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item has-icon" href="' . route('admin.image-gallery.index', ['product' => $query->id]) . '"><i class="far fa-heart"></i> Image Gallery</a>
-                    <a class="dropdown-item has-icon" href="' . route('admin.variant.index', ['product' => $query->id]) . '"><i class="far fa-file"></i> Variants</a>
+                    <a class="dropdown-item has-icon" href="' . route('admin.image-gallery.index', ['product_id' => $query->id]) . '"><i class="far fa-heart"></i> Image Gallery</a>
+                    <a class="dropdown-item has-icon" href="' . route('admin.variant.index', ['product_id' => $query->id]) . '"><i class="far fa-file"></i> Variants</a>
                 </div>
               </div>';
                 return $editBtn . $deleteBtn . $moreBtn;

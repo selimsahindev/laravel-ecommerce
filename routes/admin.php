@@ -63,7 +63,8 @@ Route::prefix('product/variant/{variant_id}/item')->group(function () {
 
 /** Product Variant Routes */
 Route::put('/product/variant/change-status', [ProductVariantController::class, 'changeStatus'])->name('variant.change-status');
-Route::resource('product/variant', ProductVariantController::class);
+Route::get('/product/{product_id}/variant', [ProductVariantController::class, 'index'])->name('variant.index');
+Route::resource('product/variant', ProductVariantController::class)->except(['index']);
 
 /** Product Routes */
 Route::put('/product/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');

@@ -2,8 +2,10 @@
 
 namespace App\DataTables;
 
+use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -49,7 +51,7 @@ class ProductVariantsDataTable extends DataTable
      */
     public function query(ProductVariant $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('product_id', request()->product_id)->newQuery();
     }
 
     /**

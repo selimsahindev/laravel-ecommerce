@@ -16,7 +16,7 @@ class ProductVariantController extends Controller
      */
     public function index(ProductVariantsDataTable $dataTable)
     {
-        $product = Product::find(request()->product);
+        $product = Product::findOrFail(request()->product_id);
         return $dataTable->render('admin.product.variant.index', compact(['product']));
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductImageGalleriesDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
@@ -15,10 +16,10 @@ class ProductImageGalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, ProductImageGalleriesDataTable $dataTable)
+    public function index(ProductImageGalleriesDataTable $dataTable)
     {
-        $productImageGallery = ProductImageGallery::where('product_id', $request->product)->first();
-        return $dataTable->render('admin.product.image-gallery.index', compact('productImageGallery'));
+        $product = Product::findOrFail(request()->product_id);
+        return $dataTable->render('admin.product.image-gallery.index', compact(['product']));
     }
 
     /**
