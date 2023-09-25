@@ -6,6 +6,7 @@ use App\DataTables\ProductVariantsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
 
 class ProductVariantController extends Controller
@@ -92,6 +93,15 @@ class ProductVariantController extends Controller
     public function destroy(string $id)
     {
         $variant = ProductVariant::findOrFail($id);
+        $variantItemCount = ProductVariantItem::where('product_variant_id', $variant->id)->count();
+
+        if ($variantItemCount > 0) {
+            return response([
+                'status' => 'error',
+                'message' => 'This variant has items. Please delete the variant items first!'
+            ]);
+        }
+
         $variant->delete();
 
         return response([
