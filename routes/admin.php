@@ -51,12 +51,15 @@ Route::resource('vendor-profile', AdminVendorProfileController::class);
 Route::resource('product/image-gallery', ProductImageGalleryController::class);
 
 /** Product Variant Item Routes */
-Route::get('/product/variant/{variant_id}/item/create', [ProductVariantItemController::class, 'create'])->name('variant-item.create');
-Route::get('/product/variant/{variant_id}/item/{id}/edit', [ProductVariantItemController::class, 'edit'])->name('variant-item.edit');
-Route::get('/product/variant/{variant_id}/item', [ProductVariantItemController::class, 'index'])->name('variant-item.index');
-Route::post('/product/variant/{variant_id}/item', [ProductVariantItemController::class, 'store'])->name('variant-item.store');
-Route::delete('/product/variant/{variant_id}/item', [ProductVariantItemController::class, 'destroy'])->name('variant-item.destroy');
-Route::put('/product/variant/{variant_id}/item/change-status', [ProductVariantItemController::class, 'changeStatus'])->name('variant-item.change-status');
+Route::prefix('product/variant/{variant_id}/item')->group(function () {
+  Route::put('/change-status', [ProductVariantItemController::class, 'changeStatus'])->name('variant-item.change-status');
+  Route::get('/create', [ProductVariantItemController::class, 'create'])->name('variant-item.create');
+  Route::get('/{id}/edit', [ProductVariantItemController::class, 'edit'])->name('variant-item.edit');
+  Route::put('/{id}', [ProductVariantItemController::class, 'update'])->name('variant-item.update');
+  Route::get('/', [ProductVariantItemController::class, 'index'])->name('variant-item.index');
+  Route::post('/', [ProductVariantItemController::class, 'store'])->name('variant-item.store');
+  Route::delete('/', [ProductVariantItemController::class, 'destroy'])->name('variant-item.destroy');
+});
 
 /** Product Variant Routes */
 Route::put('/product/variant/change-status', [ProductVariantController::class, 'changeStatus'])->name('variant.change-status');
