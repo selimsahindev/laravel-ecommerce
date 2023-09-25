@@ -13,8 +13,7 @@ class ProductVariantItemController extends Controller
     public function index(ProductVariantItemsDataTable $dataTable, string $variantId)
     {
         $variant = ProductVariant::findOrFail($variantId);
-        $product = $variant->product;
-        return $dataTable->render('admin.product.variant-item.index', compact(['product', 'variant']));
+        return $dataTable->render('admin.product.variant-item.index', compact(['variant']));
     }
 
     public function create(string $variantId)
@@ -85,5 +84,15 @@ class ProductVariantItemController extends Controller
             'status' => 'success',
             'message' => 'Product variant item deleted successfully!'
         ]);
+    }
+
+    /** Change the active status of the variant item. */
+    public function changeStatus(Request $request)
+    {
+        $variantItem = ProductVariantItem::findOrFail($request->id);
+        $variantItem->status = $request->isChecked == 'true' ? 1 : 0;
+        $variantItem->save();
+
+        return response(['message' => 'Status updated successfully!']);
     }
 }
